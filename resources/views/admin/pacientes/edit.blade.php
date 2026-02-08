@@ -1,0 +1,200 @@
+@extends('adminlte::page')
+
+@section('content_header')
+    <h1>Editar de un nuevo paciente</h1>
+    <hr>
+@stop
+
+@section('content')
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">Llene los datos del formulario</h3>
+                </div>
+                    <!-- /.card-header -->
+                <div class="card-body">
+                    <form action="{{url('admin/pacientes/'.$pacientes->id)}}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="">Tipo de Identificación</label><b>(*)</b>
+                                        <div class="input-group mb-3">
+                                            <select name="tipo_identificacion" id="tipo_identificacion" class="form-control" required>
+                                                        
+                                                        <option value="{{old('tipo_identificacion',$pacientes->tipo_identificacion)}}">
+                                                            <p>{{old('tipo_identificacion',$pacientes->tipo_identificacion)}}</p>
+                                                        </option>
+                                                        <option value="V">
+                                                            <p>V</p>
+                                                        </option>
+                                                        <option value="E">
+                                                            <p>E</p>
+                                                        </option>
+                                                        
+                                            </select>
+                                        </div>
+                                        @error('tipo_identificacion')
+                                            <small style="color:red">{{$message}}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="">Identificación</label><b>(*)</b>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-id"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" value="{{old('identificacion',$pacientes->identificacion)}}" 
+                                                name="identificacion" placeholder="Escriba aquí..." required>
+                                        </div>
+                                        @error('identificacion')
+                                            <small style="color:red">{{$message}}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="">Teléfono</label><b>(*)</b>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control" value="{{old('telefono',$pacientes->telefono)}}" 
+                                                name="telefono" placeholder="Escriba aquí..." required>
+                                        </div>
+                                        @error('telefono')
+                                            <small style="color:red">{{$message}}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Nombres del paciente</label><b>(*)</b>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" value="{{old('nombres',$pacientes->nombres)}}" 
+                                                    name="nombres" placeholder="Escriba aquí..." required>
+                                            </div>
+                                            @error('nombres')
+                                                <small style="color:red">{{$message}}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Fecha de Nacimiento</label><b>(*)</b>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" value="{{old('f_nacimiento',$pacientes->f_nacimiento)}}" 
+                                                    name="f_nacimiento" placeholder="Escriba aquí..." required>
+                                            </div>
+                                            @error('f_nacimiento')
+                                                <small style="color:red">{{$message}}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Edad</label><b>(*)</b>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" value="{{old('edad',$pacientes->edad)}}" 
+                                                    name="edad" placeholder="Escriba aquí..." required>
+                                            </div>
+                                            @error('edad')
+                                                <small style="color:red">{{$message}}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                   <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Apellidos del paciente</label><b>(*)</b>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" value="{{old('apellidos',$pacientes->apellidos)}}" 
+                                                    name="apellidos" placeholder="Escriba aquí..." required>
+                                            </div>
+                                            @error('apellidos')
+                                                <small style="color:red">{{$message}}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Correo Electrónico</label><b>(*)</b>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" value="{{old('correo_electronico',$pacientes->correo_electronico)}}" 
+                                                    name="correo_electronico" placeholder="Escriba aquí..." required>
+                                            </div>
+                                            @error('correo_electronico')
+                                                <small style="color:red">{{$message}}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Dirección</label><b>(*)</b>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" value="{{old('direccion',$pacientes->direccion)}}" 
+                                                    name="direccion" placeholder="Escriba aquí..." required>
+                                            </div>
+                                            @error('direccion')
+                                                <small style="color:red">{{$message}}</small>
+                                            @enderror
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="from-group">
+                                        <a href="{{url('/admin/pacientes')}}" type="" class="btn btn-default"><i class="fas fa-arrow-left"></i> Cancelar</a>
+                                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Actualizar</button>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+@stop
+
+@section('css')
+    {{-- Add here extra stylesheets --}}
+    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+@stop
+
+@section('js')
+    
+@stop

@@ -1,0 +1,11 @@
+table pacientes{
+    id int
+    tipo_identificacion varchar
+    identificacion varchar
+    nombres varchar
+    apellidos varchar
+    correo_electronico varchar
+    f_nacimiento varchar
+    edad varchar
+    direccion varchar
+}
