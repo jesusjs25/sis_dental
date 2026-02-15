@@ -95,7 +95,38 @@
       @endcan
   </div>
 
-  
+  <div class="card card-outline card-primary">
+    <div class="card-header">
+        <h3 class="card-title">Reserva de Cita Médica</h3>
+    </div>
+    <div class="card-body">
+        <div id="msj_validacion"></div> <form id="form_reserva_rapida">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Documento de Identidad</label>
+                        <input type="text" id="identificacion" class="form-control" placeholder="Cédula o Pasaporte" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Fecha deseada</label>
+                        <input type="date" id="fecha_reserva" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Hora</label>
+                        <input type="time" id="hora_reserva" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="btn_verificar_reserva" class="btn btn-primary btn-block">
+                Verificar Disponibilidad y Reservar
+            </button>
+        </form>
+    </div>
+</div>
 
     <div class="row">
         <div class="col-md-12">
@@ -109,13 +140,13 @@
                   </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <div class="row">
-                        <!-- Button trigger modal -->
+                    <!--<div class="row">
+                        
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                           Reservar cita
                         </button>
 
-                        <!-- Modal -->
+                        
                         <form action="{{url('/admin/eventos/create')}}" method="POST">
                           @csrf
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -149,6 +180,9 @@
                                               <div class="form-group">
                                                   <label for="">Hora de reserva</label>
                                                   <input type="time" id="hora_reserva" name="hora_reserva" class="form-control" >
+                                                  @error('hora_reserva')
+                                                      <small style="color:red">{{$message}}</small>
+                                                  @enderror
                                               </div>
                                           </div>
                                       </div>
@@ -161,7 +195,7 @@
                               </div>
                             </div>
                         </form>
-                    </div>
+                    </div>-->
                     <div id='calendar'></div>
                 </div>
                   <!-- /.card-body -->
@@ -210,17 +244,17 @@
           initialView: 'dayGridMonth',
           locale:'es',
           events:[
+            @foreach ($eventos as $evento)
+
             {
-              title: '08:00 - 09:00 Odontologico',
-              start: '2026-01-01',
-              end: '2026-01-01',
+              title: '{{$evento->title}}',
+              start: '{{\Carbon\Carbon::parse($evento->start)->format('Y-m-d')}}',
+              end: '{{\Carbon\Carbon::parse($evento->end)->format('Y-m-d')}}',
               color:'green'
-            },{
-              title: '08:00 - 09:00 Extracción',
-              start: '2026-01-05',
-              end: '2026-01-05',
-              color:'green'
-            }
+            },
+              
+            @endforeach
+            
           ]
         });
         calendar.render();
@@ -249,6 +283,16 @@
 
         });
     </script>
+
+    @if( (($mensaje = Session::get('hora_reserva'))) )
+        <script>
+          $(document).ready(function() {
+            $('#exampleModal').modal('show');
+          });
+        </script>
+          <small style="color:red">{{$mensaje}}</small>
+    @endif
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const horaReservaInput = document.getElementById('hora_reserva');
@@ -273,4 +317,44 @@
             });
         });
     </script>
+
+    
+    <script>//verificar para reserva citas
+        $('#btn_verificar_reserva').click(function() {
+    let datos = {
+        identificacion: $('#identificacion').val(),
+        fecha_reserva: $('#fecha_reserva').val(),
+        hora_reserva: $('#hora_reserva').val(),
+        "_token": "{{ csrf_token() }}"
+    };
+
+    $.ajax({
+        url: "{{ route('admin.eventos.verificar') }}",
+        method: "POST",
+        data: datos,
+        success: function(res) {
+            if (res.status === 'success') {
+                Swal.fire({
+                    title: '¡Reservado!',
+                    text: res.mensaje,
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                }).then((result) => {
+                    // Recargar la página para que el calendario muestre la nueva cita
+                    location.reload(); 
+                    // O si usas FullCalendar: $('#calendar').fullCalendar('refetchEvents');
+                });
+            } else if (res.status === 'error_paciente') {
+                Swal.fire({
+                    title: 'No registrado',
+                    html: `${res.mensaje} <br><br> <a href="${res.link}" class="btn btn-primary">Registrarse ahora</a>`,
+                    icon: 'warning'
+                });
+            } else {
+                Swal.fire('Atención', res.mensaje, 'error');
+            }
+        }
+    });
+});
+</script>
 @stop

@@ -74,4 +74,5 @@ Route::get('/admin/horarios/consultorios/{id}', [App\Http\Controllers\HorarioCon
 
 
 
-//Route::post('/admin/verificar', [App\Http\Controllers\ReservaController::class, 'verificar'])->name('admin.verificar');
+Route::post('/admin/eventos/verificar', [App\Http\Controllers\EventController::class, 'verificarYReservar'])
+    ->name('admin.eventos.verificar');
