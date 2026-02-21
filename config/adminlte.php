@@ -347,12 +347,6 @@ return [
             ],
         ],
         [
-            'text' => 'Servicios',
-            'url' => 'admin/servicios',
-            'icon' => 'far fa-fw fa-list-alt',
-            'classes' => 'bg-blue text-white',
-        ],
-        [
             'text' => 'Descuentos',
             'url' => 'admin/descuentos',
             'icon' => 'far fa fa-percent',
