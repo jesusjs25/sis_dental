@@ -25,4 +25,7 @@ class Paciente extends Model
         'direccion',
         'telefono',
     ];
+   public function pagos() {
+        return $this->hasMany(Pago::class, 'paciente_id');
+    }
 }

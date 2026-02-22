@@ -13,17 +13,18 @@ return new class extends Migration
 public function up()
 {
     Schema::create('pagos', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('user_id')->constrained(); // El paciente
-        $table->string('metodo'); // Pago Móvil, Transferencia, Biopago
-        $table->decimal('monto_usd', 10, 2);
-        $table->decimal('monto_bs', 15, 2);
-        $table->decimal('tasa_cambio', 15, 2); // Tasa BCV del día
-        $table->string('referencia')->unique(); // Número de operación
-        $table->string('comprobante')->nullable(); // Ruta de la foto del pago
-        $table->enum('status', ['pendiente', 'confirmado', 'rechazado'])->default('pendiente');
-        $table->timestamps();
-    });
+    $table->id();
+    // Relación: Si borras al paciente, se puede configurar qué pasa con sus pagos
+    $table->foreignId('paciente_id')->constrained('pacientes')->onDelete('cascade');
+    
+    $table->decimal('monto_usd', 10, 2);
+    $table->decimal('tasa_dia', 10, 2);
+    $table->decimal('monto_bs', 15, 2);
+    $table->string('metodo_pago');
+    $table->string('banco_destino')->nullable();
+    $table->decimal('vuelto_usd', 10, 2)->default(0);
+    $table->timestamps();
+});
 }
 
     /**

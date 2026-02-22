@@ -79,10 +79,7 @@ Route::post('/admin/eventos/verificar', [App\Http\Controllers\EventController::c
 
 //rutas para los pagos
 Route::get('/admin/pagos', [App\Http\Controllers\PagoController::class, 'index'])->name('admin.pagos.index')->middleware('auth');
-Route::get('/admin/pagos/create', [App\Http\Controllers\PagoController::class, 'create'])->name('admin.pagos.create')->middleware('auth');
-Route::post('/admin/pagos/store', [App\Http\Controllers\PagoController::class, 'store'])->name('admin.pagos.store')->middleware('auth');
-Route::post('/pagos/{id}/aprobar', [App\Http\Controllers\PagoController::class, 'aprobar'])->name('admin.pagos.aprobar')->middleware('auth');
-Route::get('/pagos/factura/{id}', [App\Http\Controllers\PagoController::class, 'factura'])->name('admin.pagos.factura')->middleware('auth');
-Route::put('/admin/pagos/{id}', [App\Http\Controllers\PagoController::class, 'update'])->name('pagos.update')->middleware('auth');
-Route::get('/admin/pagos/{id}/confirm-delete', [App\Http\Controllers\PagoController::class, 'confirmDelete'])->name('admin.horarios.confirmDelete')->middleware('auth');
-Route::delete('/admin/pagos/{id}', [App\Http\Controllers\PagoController::class, 'destroy'])->name('admin.pagos.destroy')->middleware('auth');
+Route::get('/admin/pagos/buscar-paciente', [App\Http\Controllers\PagoController::class, 'buscarPaciente'])->name('admin.pagos.buscar')->middleware('auth');
+Route::get('/admin/pagos/recibio-pdf/{id}', [App\Http\Controllers\PagoController::class, 'descargarPDF'])->name('admin.pagos.recibo-pdf')->middleware('auth');
+Route::post('/admin/pagos', [App\Http\Controllers\PagoController::class, 'store'])->name('admin.pagos.store')->middleware('auth');
+Route::post('/admin/pagos/tasa', [App\Http\Controllers\PagoController::class, 'guardarTasa'])->name('admin.pagos.tasa');
