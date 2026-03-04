@@ -95,7 +95,6 @@
       @endcan
   </div>
 
-
   <div class="card card-outline card-primary">
     <div class="card-header">
         <h3 class="card-title">Reserva de Cita Médica</h3>
@@ -197,7 +196,36 @@
                             </div>
                         </form>
                     </div>-->
-                    <div id='calendar'></div>
+                    <div class="row">
+    <!-- Eventos Arrastrables -->
+    <div class="col-md-3">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Eventos arrastrables</h3>
+            </div>
+            <div class="card-body">
+                <div id="external-events">
+                    <div class="external-event bg-success">Mi evento 1</div>
+                    <div class="external-event bg-warning">Mi evento 2</div>
+                    <div class="external-event bg-info">Mi evento 3</div>
+                    <div class="checkbox">
+                        <label for="drop-remove">
+                            <input type="checkbox" id="drop-remove"> quitar después de la caída
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Calendario -->
+    <div class="col-md-9">
+        <div class="card card-primary">
+            <div class="card-body p-0">
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+</div>
                 </div>
                   <!-- /.card-body -->
             <div>
@@ -240,26 +268,46 @@
     <script>
 
       document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          locale:'es',
-          events:[
-            @foreach ($eventos as $evento)
+    var Calendar = FullCalendar.Calendar;
+    var Draggable = FullCalendar.Draggable;
 
-            {
-              title: '{{$evento->title}}',
-              start: '{{\Carbon\Carbon::parse($evento->start)->format('Y-m-d')}}',
-              end: '{{\Carbon\Carbon::parse($evento->end)->format('Y-m-d')}}',
-              color:'green'
-            },
-              
-            @endforeach
-            
-          ]
-        });
-        calendar.render();
-      });
+    var containerEl = document.getElementById('external-events');
+    var calendarEl = document.getElementById('calendar');
+
+    // Inicializar los eventos externos para que sean arrastrables
+    new Draggable(containerEl, {
+      itemSelector: '.external-event',
+      eventData: function(eventEl) {
+        return {
+          title: eventEl.innerText,
+          backgroundColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
+          borderColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
+          textColor: '#fff'
+          
+        };
+      }
+    });
+
+    // Inicializar el calendario con las vistas de la imagen
+    var calendar = new Calendar(calendarEl, {
+      headerToolbar: {
+        left  : 'prev,next today',
+        center: 'title',
+        right : 'dayGridMonth,timeGridWeek,timeGridDay' // mes, semana, día
+      },
+      themeSystem: 'bootstrap',
+      editable: true,
+      droppable: true, // Permite recibir los eventos externos
+      drop: function(info) {
+        // Eliminar si el checkbox está marcado
+        if (document.getElementById('drop-remove').checked) {
+          info.draggedEl.parentNode.removeChild(info.draggedEl);
+        }
+      }
+    });
+
+    calendar.render();
+  });
 
     </script>
     <script>

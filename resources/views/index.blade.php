@@ -42,10 +42,12 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
                     <div class="p-2 bg-dental-500 rounded-lg text-white shadow-lg shadow-dental-500/30">
-                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    
+                        <img src="{{url('vendor/adminlte/dist/img/dentallogo.jpg')}}" alt="" width="50px" height="50px">
                     </div>
                     <span class="font-bold text-2xl text-dental-900 tracking-tight transition-all">Odon<span class="text-dental-500">Care</span></span>
                 </div>
+                
                 
                 <!-- Enlaces -->
                 <div class="hidden md:flex space-x-8 items-center">
@@ -259,7 +261,7 @@
                 <div class="col-span-1">
                     <div class="flex items-center gap-2 mb-8">
                         <div class="p-2 bg-dental-500 rounded-lg text-white">
-                            <i data-lucide="shield-check" class="w-6 h-6"></i>
+                            <img src="{{url('vendor/adminlte/dist/img/dentallogo.jpg')}}" alt="" width="50px" height="50px">
                         </div>
                         <span class="font-bold text-2xl tracking-tight">Odon<span class="text-dental-500">Care</span></span>
                     </div>

@@ -360,7 +360,7 @@ return [
         ],
         [
             'text' => 'Historial Clínico',
-            'url' => 'admin/historial',
+            'url' => 'admin/historiales',
             'icon' => 'far fa-fw fa-newspaper',
             'classes' => 'bg-blue text-white',
         ],

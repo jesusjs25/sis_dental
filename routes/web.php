@@ -83,3 +83,6 @@ Route::get('/admin/pagos/buscar-paciente', [App\Http\Controllers\PagoController:
 Route::get('/admin/pagos/recibio-pdf/{id}', [App\Http\Controllers\PagoController::class, 'descargarPDF'])->name('admin.pagos.recibo-pdf')->middleware('auth');
 Route::post('/admin/pagos', [App\Http\Controllers\PagoController::class, 'store'])->name('admin.pagos.store')->middleware('auth');
 Route::post('/admin/pagos/tasa', [App\Http\Controllers\PagoController::class, 'guardarTasa'])->name('admin.pagos.tasa');
+
+//rutas para los historiales médicos
+Route::get('/admin/historiales', [App\Http\Controllers\HistorialController::class, 'index'])->name('admin.historiales.index')->middleware('auth');
