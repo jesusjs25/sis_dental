@@ -35,7 +35,7 @@ class ConsultorioController extends Controller
         $request->validate([
             'nombre' => 'required',
             'ubicacion' => 'required',
-            'capacidad' => 'required',
+            'capacidad' => 'required|number',
             'especialidad' => 'required',
             'estado' => 'required',
         ]);
@@ -73,7 +73,7 @@ class ConsultorioController extends Controller
         $request->validate([
             'nombre' => 'required',
             'ubicacion' => 'required',
-            'capacidad' => 'required',
+            'capacidad' => 'required|number',
             'especialidad' => 'required',
             'estado' => 'required',
         ]);

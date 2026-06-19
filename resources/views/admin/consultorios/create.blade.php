@@ -49,7 +49,7 @@
                                 <label for="">Capacidad del Consultorio</label><b> *</b>
                                 <div class="input-group mb-3">
                                     
-                                    <input type="text" class="form-control" value="{{old('capacidad')}}" 
+                                    <input type="number" class="form-control" value="{{old('capacidad')}}" 
                                     name="capacidad" placeholder="Escriba aquí..." required>
                                 </div>
                                 @error('capacidad')

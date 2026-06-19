@@ -34,10 +34,10 @@ class PacienteController extends Controller
 
         $request->validate([
             'tipo_identificacion' => 'required|max:255',
-            'identificacion' => 'required|max:255',
+            'identificacion' => 'required|max:255|unique:pacientes',
             'nombres' => 'required|max:255',
             'apellidos' => 'required|max:255',
-            'correo_electronico' => 'required|email',
+            'correo_electronico' => 'required|email|unique:pacientes',
             'f_nacimiento' => 'required|',
             'edad' => 'required|',
             'direccion' => 'required|max:255',
@@ -89,10 +89,10 @@ class PacienteController extends Controller
 
         $request->validate([
             'tipo_identificacion' => 'required|max:255',
-            'identificacion' => 'required|max:255',
+            'identificacion' => 'required|max:255|unique:pacientes',
             'nombres' => 'required|max:255',
             'apellidos' => 'required|max:255',
-            'correo_electronico' => 'required|email',
+            'correo_electronico' => 'required|email|unique:pacientes',
             'f_nacimiento' => 'required|',
             'edad' => 'required|',
             'direccion' => 'required|max:255',
