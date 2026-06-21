@@ -95,6 +95,10 @@ class ReservaController extends Controller
      */
     public function destroy(Reserva $reserva)
     {
-        //
+        Event::destroy($reserva->id);
+        return redirect()->back()->with([
+                'mensaje' => 'Reserva eliminada correctamente.',
+                'icono' => 'success',
+            ]);
     }
 }

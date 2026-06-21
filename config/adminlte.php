@@ -346,12 +346,7 @@ return [
 
             ],
         ],
-        [
-            'text' => 'Descuentos',
-            'url' => 'admin/descuentos',
-            'icon' => 'far fa fa-percent',
-            'classes' => 'bg-blue text-white',
-        ],
+        
         [
             'text' => 'Pagos',
             'url' => 'admin/pagos',

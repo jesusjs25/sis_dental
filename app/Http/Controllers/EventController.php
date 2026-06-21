@@ -141,9 +141,14 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Event $event)
+    public function destroy($id)
     {
-        //
+        
+    $eventos = Event::destroy($id);
+        return redirect()->back()->with([
+                'mensaje' => 'Reserva eliminada correctamente.',
+                'icono' => 'success',
+            ]);
     }
 
     public function verificarYReservar(Request $request) 

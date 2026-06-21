@@ -86,3 +86,5 @@ Route::post('/admin/pagos/tasa', [App\Http\Controllers\PagoController::class, 'g
 
 //rutas para los historiales médicos
 Route::get('/admin/historiales', [App\Http\Controllers\HistorialController::class, 'index'])->name('admin.historiales.index')->middleware('auth');
+Route::get('/admin/historiales/ver_reservas/{id}', [App\Http\Controllers\HistorialController::class, 'ver_reservas'])->name('admin.historiales.ver_reservas')->middleware('auth');
+Route::delete('/admin/eventos/destroy/{id}/', [App\Http\Controllers\EventController::class, 'destroy'])->name('admin.eventos.destroy')->middleware('auth');
