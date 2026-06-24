@@ -98,8 +98,8 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                 </div>
-                                                <input type="text" class="form-control" value="{{old('f_nacimiento',$pacientes->f_nacimiento)}}" 
-                                                    name="f_nacimiento" placeholder="Escriba aquí..." required>
+                                                <input type="date" class="form-control" value="{{old('f_nacimiento',$pacientes->f_nacimiento)}}" 
+                                                    name="f_nacimiento" id="f_nacimiento" placeholder="Escriba aquí..." required>
                                             </div>
                                             @error('f_nacimiento')
                                                 <small style="color:red">{{$message}}</small>
@@ -114,7 +114,7 @@
                                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                 </div>
                                                 <input type="text" class="form-control" value="{{old('edad',$pacientes->edad)}}" 
-                                                    name="edad" placeholder="Escriba aquí..." required>
+                                                    name="edad" id="edad" readonly>
                                             </div>
                                             @error('edad')
                                                 <small style="color:red">{{$message}}</small>
@@ -197,4 +197,24 @@
 
 @section('js')
     
+<script>
+    document.getElementById('f_nacimiento').addEventListener('change', function() {
+    var fechaNacimiento = new Date(this.value);
+    var hoy = new Date();
+    
+    // Calcular la diferencia en años
+    var edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    var m = hoy.getMonth() - fechaNacimiento.getMonth();
+    
+    // Ajustar si el mes actual es anterior al mes de nacimiento 
+    // o si es el mismo mes pero el día actual es anterior
+    if (m < 0 || (m === 0 && hoy.getDate() < fechaNacimiento.getDate())) {
+        edad--;
+    }
+    
+    // Asignar el valor al campo edad
+    document.getElementById('edad').value = edad;
+});
+</script>
+
 @stop

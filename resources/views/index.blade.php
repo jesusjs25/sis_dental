@@ -59,9 +59,9 @@
 
                 <!-- Botones -->
                 <div class="hidden md:flex items-center space-x-4">
-                    <a href="{{url('/login')}}" class="text-dental-600 font-bold hover:text-dental-900 transition-colors">Acceso Pacientes</a>
+                    <!--<a href="{{url('/login')}}" class="text-dental-600 font-bold hover:text-dental-900 transition-colors">Acceso Pacientes</a>-->
                     <a href="{{url('/login')}}" class="bg-dental-500 hover:bg-dental-600 text-white px-6 py-2.5 rounded-full font-bold transition-all shadow-md hover:shadow-xl transform hover:-translate-y-0.5">
-                        Agendar Cita
+                        Acceso Pacientes
                     </a>
                 </div>
 
@@ -79,8 +79,8 @@
             <a href="#servicios" class="block font-medium text-gray-700 py-2">Servicios</a>
             <a href="#catalogo" class="block font-medium text-gray-700 py-2">Planes</a>
             <hr>
-            <a href="{{url('/login')}}" class="block font-bold text-dental-600 py-2">Acceso Pacientes</a>
-            <a href="{{url('/login')}}" class="block bg-dental-500 text-white text-center py-3 rounded-xl font-bold">Agendar Cita</a>
+            <!--<a href="{{url('/login')}}" class="block font-bold text-dental-600 py-2">Acceso Pacientes</a>-->
+            <a href="{{url('/login')}}" class="block bg-dental-500 text-white text-center py-3 rounded-xl font-bold">Acceso Pacientes</a>
         </div>
     </nav>
 
