@@ -262,7 +262,8 @@
             }
         });
     </script>
-    {{--script calendar--}}
+    
+    <!-- codigo para el calendario de reservas de citas -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js'></script>
     <script src="{{url('fullcalendar/es.global.js')}}"></script>
     <script>
@@ -274,8 +275,10 @@
     var containerEl = document.getElementById('external-events');
     var calendarEl = document.getElementById('calendar');
 
+
     // Inicializar los eventos externos para que sean arrastrables
     new Draggable(containerEl, {
+        
       itemSelector: '.external-event',
       eventData: function(eventEl) {
         return {
@@ -291,6 +294,7 @@
     // Inicializar el calendario con las vistas de la imagen
     var calendar = new Calendar(calendarEl, {
       headerToolbar: {
+        
         left  : 'prev,next today',
         center: 'title',
         right : 'dayGridMonth,timeGridWeek,timeGridDay' // mes, semana, día
@@ -298,18 +302,34 @@
       themeSystem: 'bootstrap',
       editable: true,
       droppable: true, // Permite recibir los eventos externos
+      
       drop: function(info) {
         // Eliminar si el checkbox está marcado
         if (document.getElementById('drop-remove').checked) {
           info.draggedEl.parentNode.removeChild(info.draggedEl);
         }
-      }
+      },
+      locale: 'es',
+      events: [
+        @foreach($eventos as $evento)
+          {
+            title: '{{ $evento->doctor->especialidad }} - {{ $evento->doctor->nombres }} {{ $evento->doctor->apellidos }}',
+            start: '{{ $evento->start }}',
+            end: '{{ $evento->end }}',
+            backgroundColor: '{{ $evento->backgroundColor }}',
+            borderColor: '{{ $evento->borderColor }}',
+            textColor: '{{ $evento->textColor }}',
+          },
+        @endforeach
+      ]
     });
 
     calendar.render();
   });
 
     </script>
+
+    {{--codigo para validar la fecha de reserva--}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const fechaReservaInput = document.getElementById('fecha_reserva');
@@ -333,6 +353,7 @@
         });
     </script>
 
+    <!-- codigo para mostrar el modal de reserva de cita si hay un mensaje en la sesión -->
     @if( (($mensaje = Session::get('hora_reserva'))) )
         <script>
           $(document).ready(function() {
