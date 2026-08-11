@@ -16,6 +16,16 @@ class ConsultorioController extends Controller
         return view('admin.consultorios.index', compact('consultorio'));
     }
 
+    // 📱 Método para retornar los consultorios en formato JSON para la App Móvil
+    public function indexApi()
+    {
+        // Obtenemos todos los registros de los consultorios
+        $consultorios = Consultorio::all();
+        
+        // Respondemos con los datos en formato JSON puro
+        return response()->json($consultorios, 200);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -35,7 +45,7 @@ class ConsultorioController extends Controller
         $request->validate([
             'nombre' => 'required',
             'ubicacion' => 'required',
-            'capacidad' => 'required|number',
+            'capacidad' => 'required|integer',
             'especialidad' => 'required',
             'estado' => 'required',
         ]);
@@ -73,7 +83,7 @@ class ConsultorioController extends Controller
         $request->validate([
             'nombre' => 'required',
             'ubicacion' => 'required',
-            'capacidad' => 'required|number',
+            'capacidad' => 'required|integer',
             'especialidad' => 'required',
             'estado' => 'required',
         ]);

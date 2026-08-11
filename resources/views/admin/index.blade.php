@@ -316,9 +316,9 @@
             title: '{{ $evento->doctor->especialidad }} - {{ $evento->doctor->nombres }} {{ $evento->doctor->apellidos }}',
             start: '{{ $evento->start }}',
             end: '{{ $evento->end }}',
-            backgroundColor: '{{ $evento->backgroundColor }}',
-            borderColor: '{{ $evento->borderColor }}',
-            textColor: '{{ $evento->textColor }}',
+            backgroundColor: '{{ $evento->color }}',
+            borderColor: '{{ $evento->color }}',
+            textColor: '{{ $evento->color }}',
           },
         @endforeach
       ]

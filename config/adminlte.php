@@ -1,5 +1,7 @@
 <?php
 
+use SebastianBergmann\Type\TrueType;
+
 return [
 
     /*
@@ -134,11 +136,12 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
+    'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
-    'usermenu_desc' => false,
+    'usermenu_image' => true,
+    'usermenu_desc' => true,
     'usermenu_profile_url' => false,
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -307,6 +310,20 @@ return [
             'topnav' => true
             
         ],
+        
+        [
+        'text'        => 'Contraseña',
+        'url'         => 'admin/password', // Ajusta tu ruta aquí
+        'icon'        => 'fas fa-fw fa-lock',
+        'topnav_user' => true,
+        ],
+        [
+        'text'        => 'Actualización de Datos',
+        'url'         => 'admin/profile',  // Ajusta tu ruta aquí
+        'icon'        => 'fas fa-fw fa-user-edit',
+        'topnav_user' => true,
+        ],
+
         [
             'text' => 'Usuarios',
             'url' => 'admin/usuarios',
@@ -357,6 +374,12 @@ return [
             'text' => 'Historial Clínico',
             'url' => 'admin/historiales',
             'icon' => 'far fa-fw fa-newspaper',
+            'classes' => 'bg-blue text-white',
+        ],
+        [
+            'text' => 'Reportes',
+            'url' => 'admin/reportes',
+            'icon' => 'far fa-fw fa-chart-bar',
             'classes' => 'bg-blue text-white',
         ],
     ],
@@ -432,11 +455,11 @@ return [
             ],
         ],
         'Chartjs' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
                 ],
             ],

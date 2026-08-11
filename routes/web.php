@@ -89,3 +89,9 @@ Route::post('/admin/pagos/tasa', [App\Http\Controllers\PagoController::class, 'g
 Route::get('/admin/historiales', [App\Http\Controllers\HistorialController::class, 'index'])->name('admin.historiales.index')->middleware('auth');
 Route::get('/admin/historiales/ver_reservas/{id}', [App\Http\Controllers\HistorialController::class, 'ver_reservas'])->name('admin.historiales.ver_reservas')->middleware('auth');
 Route::delete('/admin/eventos/destroy/{id}/', [App\Http\Controllers\EventController::class, 'destroy'])->name('admin.eventos.destroy')->middleware('auth');
+
+//rutas para los reportes
+Route::get('/admin/reportes', [App\Http\Controllers\ReporteController::class, 'index'])->name('admin.reportes.index')->middleware('auth');
+Route::get('/admin/reportes/citas/csv', [App\Http\Controllers\ReporteController::class, 'exportarCitasCsv'])->name('admin.reportes.citas.csv');
+Route::get('/admin/reportes/ventas/csv', [App\Http\Controllers\ReporteController::class, 'exportarVentasCsv'])->name('admin.reportes.ventas.csv');
+Route::get('/admin/reportes/doctores/csv', [App\Http\Controllers\ReporteController::class, 'exportarDoctoresCsv'])->name('admin.reportes.doctores.csv');

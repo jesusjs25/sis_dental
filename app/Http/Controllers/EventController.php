@@ -198,6 +198,70 @@ class EventController extends Controller
         $evento->color = '#28a745'; 
         $evento->user_id = \Illuminate\Support\Facades\Auth::user()->id;
         $evento->doctor_id = $doctor->id;
+        $evento->consultorio_id = 1;
+        $evento->status = "Completado"; 
+        $evento->save();
+
+        return response()->json([
+            'status' => 'success',
+            'mensaje' => '¡Reserva realizada con éxito!'
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'mensaje' => 'Error técnico: ' . $e->getMessage()
+        ]);
+    }
+}
+// controlador para app movil
+public function verificarYReservarApi(Request $request) 
+{
+    // Validar que los campos no estén vacíos antes de procesar
+    if (!$request->fecha_reserva || !$request->hora_reserva || !$request->identificacion) {
+        return response()->json([
+            'status' => 'error',
+            'mensaje' => 'Por favor, complete todos los campos del formulario.'
+        ]);
+    }
+
+    // 1. Validar existencia del paciente
+    $paciente = \App\Models\Paciente::where('identificacion', $request->identificacion)->first();
+    
+    if (!$paciente) {
+        return response()->json([
+            'status' => 'error_paciente',
+            'mensaje' => 'Usted no se encuentra registrado.',
+            'link' => route('admin.pacientes.create')
+        ]);
+    }
+
+    // 2. Formatear correctamente la fecha y hora para MySQL
+    $fecha_hora_inicio = $request->fecha_reserva . ' ' . $request->hora_reserva . ':00';
+
+    // 3. Validar disponibilidad en la tabla eventos
+    $existeEvento = \App\Models\Event::where('start', $fecha_hora_inicio)->exists();
+
+    if ($existeEvento) {
+        return response()->json([
+            'status' => 'error_disponibilidad',
+            'mensaje' => 'La fecha y hora seleccionada ya está ocupada.'
+        ]);
+    }
+
+    // 4. Guardado
+    try {
+        $doctor = \App\Models\Doctor::first(); 
+
+        $evento = new \App\Models\Event();
+        $evento->title = "Cita: " . $paciente->nombres . " " . $paciente->apellidos . " - " . $doctor->especialidad;
+        $evento->start = $fecha_hora_inicio;
+        $evento->end = $fecha_hora_inicio; 
+        $evento->color = '#28a745'; 
+        
+        // 💡 CAMBIO: Usamos el ID del usuario del paciente o el ID 1 por defecto para evitar el fallo de Auth::user()
+        $evento->user_id = $paciente->user_id ?? 1; 
+        
+        $evento->doctor_id = $doctor->id;
         $evento->consultorio_id = 1; 
         $evento->save();
 

@@ -20,5 +20,9 @@ Route::group([
     Route::post('me', 'App\Http\Controllers\AuthController@me');
 
     Route::post('register', 'App\Http\Controllers\AuthController@register');
+    Route::post('forgot_password', 'App\Http\Controllers\AuthController@forgot_password');
+
+    // Nueva ruta para agendar citas desde la aplicación móvil
+    Route::post('verificarYReservarApi', 'App\Http\Controllers\EventController@verificarYReservarApi');
 
 });

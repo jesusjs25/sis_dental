@@ -18,6 +18,16 @@ class DoctorController extends Controller
         return view('admin.doctores.index', compact('doctores'));
     }
 
+    // 📱 Método para retornar los doctores en formato JSON para la App Móvil
+    public function indexApi()
+    {
+        // Buscamos los doctores con sus datos de usuario
+        $doctores = Doctor::with('user')->get();
+        
+        // Respondemos con un JSON puro y un código 200 (Éxito)
+        return response()->json($doctores, 200);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

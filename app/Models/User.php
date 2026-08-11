@@ -25,6 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         'name',
         'email',
         'password',
+        'logo',
     ];
 
     /**
@@ -75,4 +76,21 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     {
         return [];
     }
+
+
+
+        public function adminlte_image()
+        {
+            // Puedes retornar la ruta de la foto del usuario o un avatar por defecto
+            return $this->logo ? asset('storage/' .$this->logo) 
+            : 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . 
+            '&background=0D8ABC&color=fff' ; 
+            // O si usas Gravatar/local: return $this->foto ? asset('storage/'.$this->foto) : 'https://picsum.photos/300/300';
+        }
+        public function adminlte_desc()
+        {
+            return $this->roles->pluck('name')->first(); // O return $this->role; si lo tienes dinámico
+        }
+        
+
 }
